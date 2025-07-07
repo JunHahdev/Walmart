@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.listofcountries.data.model.CountryItem
 import com.example.listofcountries.data.repository.CountryAPIRepository
 import com.example.listofcountries.ui.state.UiState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ class CountryViewModel(
     }
 
     private fun getCountries() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO){
             _uiState.value = UiState.Loading
             try {
                 val result = countryAPIRepository.getCountries()
